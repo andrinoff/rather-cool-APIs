@@ -1,0 +1,200 @@
+/* Import a modern font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+/* Define color variables for light and dark themes */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --header-color: #0056b3;
+    --header-border: #007bff;
+    --link-color: #007bff;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    --code-bg: #e9ecef;
+    --preview-bg: #f1f3f5;
+    --tab-border: #dee2e6;
+    --tab-active-bg: #ffffff;
+    --tab-inactive-bg: #f8f9fa;
+    --icon-filter: invert(0%);
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-color: #90caff;
+    --header-border: #58a6ff;
+    --link-color: #58a6ff;
+    --card-bg: #1e1e1e;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --code-bg: #2d2d2d;
+    --preview-bg: #252525;
+    --tab-border: #444;
+    --tab-active-bg: #1e1e1e;
+    --tab-inactive-bg: #2d2d2d;
+    --icon-filter: invert(100%);
+}
+
+/* General body styles */
+body {
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Header and theme switcher */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--header-border);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: var(--header-color);
+    margin: 0;
+}
+
+#theme-switcher {
+    background: none;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+#theme-switcher:hover {
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* API Section Styling */
+.api-section {
+    background-color: var(--card-bg);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.3s ease;
+}
+
+h2 {
+    color: var(--header-color);
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+
+h2 img {
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    filter: var(--icon-filter); /* Invert icon colors in dark mode */
+}
+
+/* Tab styling */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--tab-border);
+    margin-bottom: 15px;
+}
+
+.tab-button {
+    background-color: var(--tab-inactive-bg);
+    border: 1px solid var(--tab-border);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    margin-right: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+    background-color: var(--tab-active-bg);
+    border-bottom: 1px solid var(--tab-active-bg);
+}
+
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* Code and Preview blocks */
+.code-block,
+.output-preview {
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-family: "Courier New", Courier, monospace;
+    transition: background-color 0.3s ease;
+}
+
+.code-block {
+    background-color: var(--code-bg);
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.output-preview {
+    background-color: var(--preview-bg);
+    font-style: italic;
+    white-space: pre-wrap;
+}
+
+/* Links and utility classes */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.loading,
+.error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #6c757d;
+    padding: 50px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--tab-border);
+    font-size: 0.9rem;
+    color: #6c757d;
+}
