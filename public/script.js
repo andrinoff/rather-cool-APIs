@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const folderName = dir.name;
         const apiName = formatApiName(folderName);
         const endpointURL = `${baseURL}${folderName}`;
-        const iconURL = `https://raw.githubusercontent.com/${owner}/${repo}/refs/master/${path}/${folderName}/favicon.ico`;
+        const iconURL = `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/master/${path}/${folderName}/favicon.ico`;
 
         const pythonCode = `import requests\n\nresponse = requests.get("${endpointURL}")\nprint(response.text)`;
         const javascriptCode = `fetch("${endpointURL}")\n  .then(response => response.text())\n  .then(data => console.log(data));`;
