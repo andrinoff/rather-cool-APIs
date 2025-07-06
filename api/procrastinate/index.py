@@ -4,6 +4,19 @@ import random
 import os
 
 class Handler(BaseHTTPRequestHandler):
+
+    def _send_cors_headers(self):
+        """A helper method to send the required CORS headers."""
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type')
+
+    def do_OPTIONS(self):
+        """Respond to preflight CORS requests."""
+        self.send_response(204) # No Content
+        self._send_cors_headers()
+        self.end_headers()
+
     def do_GET(self):
         try:
             script_dir = os.path.dirname(__file__)
@@ -18,6 +31,7 @@ class Handler(BaseHTTPRequestHandler):
             if not reasons:
                 self.send_response(500)
                 self.send_header('Content-type', 'text/plain')
+                self._send_cors_headers()
                 self.end_headers()
                 self.wfile.write(b"No reasons found in the file.")
                 return
@@ -28,18 +42,21 @@ class Handler(BaseHTTPRequestHandler):
             # Send the successful response
             self.send_response(200)
             self.send_header('Content-type', 'text/plain; charset=utf-8')
+            self._send_cors_headers()
             self.end_headers()
             self.wfile.write(random_reason.encode('utf-8'))
 
         except FileNotFoundError:
             self.send_response(500)
             self.send_header('Content-type', 'text/plain')
+            self._send_cors_headers()
             self.end_headers()
             error_message = f"Error: 'reasons.txt' not found. Make sure it's in the '{os.path.basename(script_dir)}' directory.".encode('utf-8')
             self.wfile.write(error_message)
         except Exception as e:
             self.send_response(500)
             self.send_header('Content-type', 'text/plain')
+            self._send_cors_headers()
             self.end_headers()
             self.wfile.write(f"An internal server error occurred: {e}".encode('utf-8'))
 
