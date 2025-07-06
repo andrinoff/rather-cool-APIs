@@ -1,0 +1,36 @@
+name: Verify Vercel Build
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  # The 'build' job's purpose is to run the Vercel build command to check for errors.
+  build:
+    # Use the latest version of Ubuntu as the runner.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code from the pull request.
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment. Vercel CLI requires Node.js.
+      # We specify a version of Node.js that is compatible with Vercel.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22" # Using Node.js version 22
+
+      # Step 3: Install the Vercel CLI.
+      # The '-g' flag installs it globally so it can be used in subsequent steps.
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      # Step 4: Run the Vercel build command.
+      # This command simulates a production build and will fail if there are any errors
+      # in the code that would prevent Vercel from deploying it successfully.
+      # No VERCEL_TOKEN is needed for the build command.
+      - name: Run Vercel Build
+        run: vercel build
