@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rather Cool APIs - Fully Dynamic</title>
+        <style>
+            /* Import a modern font */
+            @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+            /* Define color variables for light and dark themes */
+            :root {
+                --bg-color: #f8f9fa;
+                --text-color: #212529;
+                --header-color: #0056b3;
+                --header-border: #007bff;
+                --link-color: #007bff;
+                --card-bg: #ffffff;
+                --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+                --code-bg: #e9ecef;
+                --preview-bg: #f1f3f5;
+                --tab-border: #dee2e6;
+                --tab-active-bg: #ffffff;
+                --tab-inactive-bg: #f8f9fa;
+                --icon-filter: invert(0%);
+            }
+
+            body.dark-mode {
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --header-color: #90caff;
+                --header-border: #58a6ff;
+                --link-color: #58a6ff;
+                --card-bg: #1e1e1e;
+                --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                --code-bg: #2d2d2d;
+                --preview-bg: #252525;
+                --tab-border: #444;
+                --tab-active-bg: #1e1e1e;
+                --tab-inactive-bg: #2d2d2d;
+                --icon-filter: invert(100%);
+            }
+
+            /* General body styles */
+            body {
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+                line-height: 1.7;
+                color: var(--text-color);
+                background-color: var(--bg-color);
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+                transition:
+                    background-color 0.3s ease,
+                    color 0.3s ease;
+            }
+
+            /* Header and theme switcher */
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px solid var(--header-border);
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                color: var(--header-color);
+                margin: 0;
+            }
+
+            #theme-switcher {
+                background: none;
+                border: 2px solid var(--text-color);
+                color: var(--text-color);
+                font-size: 1.5rem;
+                cursor: pointer;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    transform 0.3s ease,
+                    color 0.3s ease,
+                    border-color 0.3s ease;
+            }
+
+            #theme-switcher:hover {
+                transform: scale(1.1) rotate(15deg);
+            }
+
+            /* API Section Styling */
+            .api-section {
+                background-color: var(--card-bg);
+                padding: 25px;
+                margin-bottom: 25px;
+                border-radius: 12px;
+                box-shadow: var(--card-shadow);
+                transition: background-color 0.3s ease;
+            }
+
+            h2 {
+                color: var(--header-color);
+                display: flex;
+                align-items: center;
+                margin-top: 0;
+            }
+
+            h2 img {
+                margin-right: 15px;
+                width: 40px;
+                height: 40px;
+                filter: var(
+                    --icon-filter
+                ); /* Invert icon colors in dark mode */
+            }
+
+            /* Tab styling */
+            .tabs {
+                display: flex;
+                border-bottom: 1px solid var(--tab-border);
+                margin-bottom: 15px;
+            }
+
+            .tab-button {
+                background-color: var(--tab-inactive-bg);
+                border: 1px solid var(--tab-border);
+                padding: 10px 20px;
+                cursor: pointer;
+                border-bottom: none;
+                border-radius: 8px 8px 0 0;
+                margin-right: 5px;
+                font-size: 1rem;
+                font-weight: 500;
+                color: var(--text-color);
+                transition: background-color 0.3s ease;
+            }
+
+            .tab-button.active {
+                background-color: var(--tab-active-bg);
+                border-bottom: 1px solid var(--tab-active-bg);
+            }
+
+            .tab-content {
+                display: none;
+            }
+            .tab-content.active {
+                display: block;
+            }
+
+            /* Code and Preview blocks */
+            .code-block,
+            .output-preview {
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 10px;
+                font-family: "Courier New", Courier, monospace;
+                transition: background-color 0.3s ease;
+            }
+
+            .code-block {
+                background-color: var(--code-bg);
+                white-space: pre-wrap;
+                word-break: break-all;
+            }
+
+            .output-preview {
+                background-color: var(--preview-bg);
+                font-style: italic;
+                white-space: pre-wrap;
+            }
+
+            /* Links and utility classes */
+            a {
+                color: var(--link-color);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .loading,
+            .error {
+                text-align: center;
+                font-size: 1.2em;
+                color: #6c757d;
+                padding: 50px;
+            }
+
+            /* Footer */
+            footer {
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid var(--tab-border);
+                font-size: 0.9rem;
+                color: #6c757d;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Rather Cool APIs 🚀</h1>
+            <button id="theme-switcher" aria-label="Toggle theme">🌙</button>
+        </header>
+        <main>
+            <p class="intro">
+                This page is the main entry point for exploring and interacting
+                with my public APIs.
+            </p>
+            <div id="api-container">
+                <div class="loading">⚙️ Scanning repository for APIs...</div>
+            </div>
+        </main>
+        <footer>
+            <p>
+                Powered by the
+                <a
+                    href="https://docs.github.com/en/rest/repos/contents"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >GitHub API</a
+                >.
+            </p>
+        </footer>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // --- Theme Switcher Logic ---
+                const themeSwitcher = document.getElementById("theme-switcher");
+                const body = document.body;
+
+                // Function to apply the saved theme on load
+                const loadTheme = () => {
+                    const isDarkMode =
+                        localStorage.getItem("darkMode") === "true";
+                    body.classList.toggle("dark-mode", isDarkMode);
+                    themeSwitcher.textContent = isDarkMode ? "☀️" : "🌙";
+                };
+
+                // Event listener for the theme switcher button
+                themeSwitcher.addEventListener("click", () => {
+                    const isDarkMode = body.classList.toggle("dark-mode");
+                    localStorage.setItem("darkMode", isDarkMode);
+                    themeSwitcher.textContent = isDarkMode ? "☀️" : "🌙";
+                });
+
+                // --- Original API Fetching Logic ---
+                /**
+                 * Formats a folder name into a display-friendly API name.
+                 * e.g., "dad-joke" -> "Dad Joke API"
+                 * @param {string} folderName - The name of the folder.
+                 * @returns {string} The formatted API name.
+                 */
+                function formatApiName(folderName) {
+                    return (
+                        folderName
+                            .split("-")
+                            .map(
+                                (word) =>
+                                    word.charAt(0).toUpperCase() +
+                                    word.slice(1),
+                            )
+                            .join(" ") + " API"
+                    );
+                }
+
+                /**
+                 * Fetches a live preview from the API endpoint.
+                 * @param {string} url - The URL of the API endpoint.
+                 * @returns {Promise<string>} The text content from the API response.
+                 */
+                async function fetchApiPreview(url) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok)
+                            return `Preview not available (Status: ${response.status}).`;
+                        return await response.text();
+                    } catch (error) {
+                        console.error(
+                            `Error fetching preview for ${url}:`,
+                            error,
+                        );
+                        return "Could not fetch preview.";
+                    }
+                }
+
+                /**
+                 * Main function to fetch repository contents and build the API list.
+                 */
+                async function fetchAndDisplayApis() {
+                    const apiContainer =
+                        document.getElementById("api-container");
+                    const owner = "andrinoff";
+                    const repo = "rather-cool-apis";
+                    const path = "api";
+                    const githubApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+                    const baseURL = "https://api.andrinoff.com/api/";
+
+                    try {
+                        const response = await fetch(githubApiUrl);
+                        if (!response.ok) {
+                            throw new Error(
+                                `GitHub API request failed: ${response.status}`,
+                            );
+                        }
+                        const contents = await response.json();
+                        const apiDirs = contents.filter(
+                            (item) => item.type === "dir",
+                        );
+
+                        apiContainer.innerHTML = ""; // Clear loading message
+
+                        if (apiDirs.length === 0) {
+                            apiContainer.innerHTML =
+                                '<div class="error">No API folders found.</div>';
+                            return;
+                        }
+
+                        for (const [index, dir] of apiDirs.entries()) {
+                            const folderName = dir.name;
+                            const apiName = formatApiName(folderName);
+                            const endpointURL = `${baseURL}${folderName}`;
+                            const iconURL = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}/${folderName}/favicon.ico`;
+
+                            const pythonCode = `import requests\n\nresponse = requests.get("${endpointURL}")\nprint(response.text)`;
+                            const javascriptCode = `fetch("${endpointURL}")\n  .then(response => response.text())\n  .then(data => console.log(data));`;
+                            const goCode = `package main\n\nimport (\n\t"fmt"\n\t"io/ioutil"\n\t"net/http"\n)\n\nfunc main() {\n\tresp, err := http.Get("${endpointURL}")\n\tif err != nil {\n\t\tfmt.Println("Error:", err)\n\t\treturn\n\t}\n\tdefer resp.Body.Close()\n\tbody, _ := ioutil.ReadAll(resp.Body)\n\tfmt.Println(string(body))\n}`;
+
+                            const apiSection = document.createElement("div");
+                            apiSection.className = "api-section";
+                            apiSection.innerHTML = `
+                            <h2>
+                                <img src="${iconURL}" alt="API icon" onerror="this.style.display='none'">
+                                ${apiName}
+                            </h2>
+                            <p><strong>Endpoint:</strong> <a href="${endpointURL}" target="_blank" rel="noopener noreferrer">${endpointURL}</a></p>
+                            <h3>Usage Examples</h3>
+                            <div class="tabs">
+                                <button class="tab-button active" data-tab="python-${index}">Python</button>
+                                <button class="tab-button" data-tab="js-${index}">JavaScript</button>
+                                <button class="tab-button" data-tab="go-${index}">Go</button>
+                            </div>
+                            <div id="python-${index}" class="tab-content active"><div class="code-block">${pythonCode}</div></div>
+                            <div id="js-${index}" class="tab-content"><div class="code-block">${javascriptCode}</div></div>
+                            <div id="go-${index}" class="tab-content"><div class="code-block">${goCode}</div></div>
+                            <h3>Live Output Preview</h3>
+                            <div class="output-preview" id="preview-${index}">Fetching preview...</div>
+                        `;
+                            apiContainer.appendChild(apiSection);
+
+                            // Fetch and display the live preview
+                            const previewText =
+                                await fetchApiPreview(endpointURL);
+                            document.getElementById(
+                                `preview-${index}`,
+                            ).textContent = previewText;
+                        }
+                    } catch (error) {
+                        console.error("Error initializing page:", error);
+                        apiContainer.innerHTML = `<div class="error">⚠️ Could not load APIs from GitHub. Check the console for details.</div>`;
+                    }
+                }
+
+                // New, more robust tab switching using event delegation
+                document
+                    .getElementById("api-container")
+                    .addEventListener("click", (event) => {
+                        if (event.target.matches(".tab-button")) {
+                            const button = event.target;
+                            const tabId = button.dataset.tab;
+                            const apiSection = button.closest(".api-section");
+
+                            apiSection
+                                .querySelectorAll(".tab-content")
+                                .forEach((c) => c.classList.remove("active"));
+                            apiSection
+                                .querySelectorAll(".tab-button")
+                                .forEach((b) => b.classList.remove("active"));
+
+                            apiSection
+                                .querySelector(`#${tabId}`)
+                                .classList.add("active");
+                            button.classList.add("active");
+                        }
+                    });
+
+                // Initial calls
+                loadTheme();
+                fetchAndDisplayApis();
+            });
+        </script>
+    </body>
+</html>
