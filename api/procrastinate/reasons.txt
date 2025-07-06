@@ -13,3 +13,203 @@ Your cat might have sneezed, you should go check.
 The lighting in this room just isn't right for this task.
 You need to align your chakras first.
 Maybe you should consider a new career path instead.
+You feel the task is too big.
+You don't know where to start.
+You are afraid of failing.
+You are afraid of succeeding.
+You find it boring.
+You think it's too difficult.
+You don't have enough information.
+You are waiting for the "right" mood.
+You are tired.
+You are feeling overwhelmed.
+You'd rather do something fun.
+You need more coffee.
+You'll do it later when you're more motivated.
+The deadline is far away.
+You work better under pressure.
+You don't feel like it right now.
+You are easily distracted.
+There are too many other things for you to do.
+You need to clean your desk first.
+You are waiting for inspiration.
+You don't have the right tools.
+You need to research more.
+You're not sure what the exact requirements are.
+You are worried about making a mistake.
+You think someone else might do it better.
+You need a break.
+You just finished something hard.
+You need to check your emails.
+You need to scroll social media.
+Your phone buzzed.
+You are hungry.
+You are thirsty.
+You need to use the restroom.
+You'll start after this TV show.
+You'll start after this game.
+You need to organize your thoughts.
+You are not feeling well.
+You are feeling stressed.
+You are feeling anxious.
+You are feeling depressed.
+You need to talk to someone first.
+You are waiting for feedback.
+You don't see the point.
+It's not urgent.
+You believe it's someone else's responsibility.
+You are not in the mood for this.
+You'll do it tomorrow.
+You'll do it next week.
+You'll do it when you have more time.
+You are waiting for a sign.
+You need to meditate first.
+You need to exercise first.
+You need to eat something healthy.
+You need to take a nap.
+You need to water the plants.
+You need to walk the dog.
+You need to call your mom.
+You need to reply to that text.
+You need to check the news.
+You need to watch that video.
+You need to listen to that podcast.
+You need to make a to-do list.
+You need to prioritize your tasks.
+This task is too vague for you.
+You don't have clear instructions.
+You are waiting for clarification.
+You are worried about being judged.
+You are worried about criticism.
+You are worried about disappointing someone.
+You are worried about letting yourself down.
+You are worried about making the wrong decision.
+You are worried about wasting time.
+You are worried about not being good enough.
+You are worried about what comes next.
+You are worried about the outcome.
+You are worried about the consequences.
+You are worried about the effort required.
+You are worried about the time commitment.
+You are worried about the complexity.
+You are worried about the unknown.
+You are worried about the responsibility.
+You are worried about the pressure.
+You are worried about the expectations.
+You are worried about the future.
+You are worried about your past mistakes.
+You are worried about your current abilities.
+You are worried about your lack of experience.
+You are worried about not having enough resources.
+You are worried about external factors.
+You are worried about internal doubts.
+You are just not feeling it today.
+You need to clear your head.
+You need to get some fresh air.
+You need to stretch.
+You need to look out the window.
+You need to organize your files.
+You need to update your software.
+You need to charge your device.
+You need to find a better playlist.
+You need to find a better workspace.
+You need to adjust the lighting.
+You need to adjust the temperature.
+You need to get a new pen.
+You need to sharpen your pencil.
+You need to find your glasses.
+You need to put on comfortable clothes.
+You need to make sure you won't be interrupted.
+You need to silence your notifications.
+You need to close unnecessary tabs.
+You need to check if anyone else is online.
+You need to look up something unrelated.
+You need to plan your next meal.
+You need to think about your weekend plans.
+You need to daydream for a bit.
+You need to stare blankly at the wall.
+You need to re-read the instructions for the tenth time.
+You need to overthink every possible scenario.
+You need to convince yourself it's not that important.
+You need to convince yourself it can wait.
+You need to find a distraction.
+You need to avoid responsibility.
+You need to avoid discomfort.
+You need to avoid effort.
+You need to avoid thinking too hard.
+You need to avoid making decisions.
+You need to avoid commitment.
+You need to avoid change.
+You need to avoid confrontation.
+You need to avoid conflict.
+You need to avoid potential failure.
+You need to avoid potential success.
+You need to avoid being seen.
+You need to avoid being heard.
+You need to avoid being noticed.
+You need to avoid being wrong.
+You need to avoid being right.
+You need to avoid being unique.
+You need to avoid being average.
+You need to avoid being exceptional.
+You need to avoid being ordinary.
+You need to avoid being different.
+You need to avoid being the same.
+You need to avoid anything new.
+You need to avoid anything old.
+You need to avoid anything challenging.
+You need to avoid anything easy.
+You need to avoid anything that requires focus.
+You need to avoid anything that requires sustained effort.
+You need to avoid anything that requires creativity.
+You need to avoid anything that requires logic.
+You need to avoid anything that requires emotion.
+You need to avoid anything that requires physical activity.
+You need to avoid anything that requires mental activity.
+You need to avoid anything that requires social interaction.
+You need to avoid anything that requires solitude.
+You need to avoid anything that requires speaking.
+You need to avoid anything that requires writing.
+You need to avoid anything that requires reading.
+You need to avoid anything that requires listening.
+You need to avoid anything that requires learning.
+You need to avoid anything that requires teaching.
+You need to avoid anything that requires leading.
+You need to avoid anything that requires following.
+You need to avoid anything that requires thinking.
+You need to avoid anything that requires feeling.
+You need to avoid anything that requires being present.
+You need to avoid anything that requires being future-oriented.
+You need to avoid anything that requires being past-oriented.
+You need to avoid anything that requires action.
+You need to avoid anything that requires inaction.
+You need to avoid anything that requires a decision.
+You need to avoid anything that requires a choice.
+You need to avoid anything that requires a commitment.
+You need to avoid anything that requires a promise.
+You need to avoid anything that requires a sacrifice.
+You need to avoid anything that requires a risk.
+You need to avoid anything that requires vulnerability.
+You need to avoid anything that requires strength.
+You need to avoid anything that requires weakness.
+You need to avoid anything that requires honesty.
+You need to avoid anything that requires deception.
+You need to avoid anything that requires truth.
+You need to avoid anything that requires lies.
+You need to avoid anything that requires effort.
+You need to avoid anything that requires ease.
+You need to avoid anything that requires comfort.
+You need to avoid anything that requires discomfort.
+You need to avoid anything that requires growth.
+You need to avoid anything that requires stagnation.
+You need to avoid anything that requires progress.
+You need to avoid anything that requires regression.
+You need to avoid anything that requires moving forward.
+You need to avoid anything that requires standing still.
+You need to avoid anything that requires looking back.
+You need to avoid anything that requires looking ahead.
+You need to avoid anything that requires being here.
+You need to avoid anything that requires being there.
+You need to avoid anything that requires being anywhere.
+You need to avoid anything that requires being someone.
+You just don't want to.
