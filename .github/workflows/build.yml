@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Using Node.js version 20
+          node-version: "22" # Using Node.js version 20
 
       # Step 3: Install the Vercel CLI.
       # The '-g' flag installs it globally so it can be used in subsequent steps.
