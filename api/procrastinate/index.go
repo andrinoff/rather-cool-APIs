@@ -23,10 +23,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	// --- End CORS Headers ---
 
-	// rand.Seed is deprecated. Use the new method in Go 1.20+ for better practice.
-	// For older versions, your original code is fine.
-	// rgen := rand.New(rand.NewSource(time.Now().UnixNano())) // More modern approach
-	rand.Seed(time.Now().UnixNano()) // Sticking to original for compatibility
+	// FIX: new version, replacing depreciated rand.Seed
+	rgen := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// Read the reasons from the embedded file.
 	reasons, err := readReasons("reasons.txt")
@@ -41,8 +39,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Select a random reason.
-	// randomReason := reasons[rgen.Intn(len(reasons))] // Modern approach
-	randomReason := reasons[rand.Intn(len(reasons))]
+	randomReason := reasons[rgen.Intn(len(reasons))] // Modern approach
 
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	fmt.Fprintln(w, randomReason)
