@@ -7,16 +7,17 @@ SHELL := /bin/bash
 #  TARGETS
 # ==============================================================================
 
-.PHONY: help setup test clean
+.PHONY: help setup test clean create-dummy-vercel
 
 help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@echo "  help      Show this help message."
-	@echo "  setup     Initialize the project: create package.json, install Vercel CLI, and create .gitignore."
-	@echo "  test      Run a Vercel build to verify that all APIs and the frontend can be assembled."
-	@echo "  clean     Remove build artifacts and installed node modules."
+	@echo "  help                Show this help message."
+	@echo "  setup               Initialize the project: create package.json, install Vercel CLI, and create .gitignore."
+	@echo "  test                Run a Vercel build to verify that all APIs and the frontend can be assembled."
+	@echo "  clean               Remove build artifacts and installed node modules."
+	@echo "  create-dummy-vercel Create a dummy .vercel/project.json file required for local testing."
 
 # Target to set up the development environment
 setup:
@@ -55,12 +56,10 @@ setup:
 	fi
 	@echo "--- Setup complete ---"
 
+
 # Target to test the build process
-test:
+test: create-dummy-vercel
 	@echo "--- Running build verification test ---"
-	@# The Vercel CLI requires a dummy project config to run a local build
-	@mkdir -p .vercel
-	@echo '{"projectId": "prj_placeholder", "orgId": "team_placeholder"}' > .vercel/project.json
 	@# Run the build command. This will fail if any part of the project is broken.
 	@vercel build
 	@echo "--- Build verification successful ---"
