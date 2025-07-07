@@ -6,7 +6,7 @@ name: Verify Vercel Build
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   # The 'build' job's purpose is to run the Vercel build command to check for errors.
