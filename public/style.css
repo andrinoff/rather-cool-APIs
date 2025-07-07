@@ -1,4 +1,132 @@
-/* Add these styles to your existing public/style.css */
+/* Import a modern font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+/* Define color variables for light and dark themes */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --header-color: #0056b3;
+    --header-border: #007bff;
+    --link-color: #007bff;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    /* --code-bg has been removed as highlight.js handles it */
+    --preview-bg: #f1f3f5;
+    --tab-border: #dee2e6;
+    --tab-active-bg: #ffffff;
+    --tab-inactive-bg: #f8f9fa;
+    --icon-filter: invert(0%);
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-color: #90caff;
+    --header-border: #58a6ff;
+    --link-color: #58a6ff;
+    --card-bg: #1e1e1e;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    /* --code-bg has been removed as highlight.js handles it */
+    --preview-bg: #252525;
+    --tab-border: #444;
+    --tab-active-bg: #1e1e1e;
+    --tab-inactive-bg: #2d2d2d;
+    --icon-filter: invert(100%);
+}
+
+/* General body styles */
+body {
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Header and theme switcher */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--header-border);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: var(--header-color);
+    margin: 0;
+}
+
+#theme-switcher {
+    background: none;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+#theme-switcher:hover {
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* API Section Styling */
+.api-section {
+    background-color: var(--card-bg);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.3s ease;
+}
+
+h2 {
+    color: var(--header-color);
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+
+h2 img {
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+}
+
+.logo {
+    border-radius: 50%;
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+}
+
+.logo_container {
+    display: flex;
+    align-items: center;
+}
 
 /* Tab styling */
 .tabs {
@@ -33,29 +161,68 @@
     display: block;
 }
 
-/* Syntax Highlighting Container */
+/* --- New Styles for Syntax Highlighting --- */
+/* The <pre> tag acts as a container for the code block */
 pre {
-    margin: 0;
-    border-radius: 8px;
-    overflow: hidden;
+    margin: 10px 0 0 0; /* Adjusted margin */
+    border-radius: 8px; /* Rounded corners for the container */
+    overflow: hidden; /* Ensures the inner <code> respects the container's border-radius */
 }
 
+/* The <code> tag is styled by the highlight.js theme for colors. We only add padding and font styles. */
 pre code.hljs {
     padding: 20px;
-    display: block;
+    display: block; /* Ensures padding is applied correctly */
     font-family: "Courier New", Courier, monospace;
-    white-space: pre-wrap;
+    white-space: pre-wrap; /* Wrap long lines */
     word-break: break-all;
 }
 
-/* Docs Button Style */
+/* Preview block styling */
+.output-preview {
+    background-color: var(--preview-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-family: "Courier New", Courier, monospace;
+    font-style: italic;
+    white-space: pre-wrap;
+    transition: background-color 0.3s ease;
+}
+
+/* Links and utility classes */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.loading,
+.error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #6c757d;
+    padding: 50px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--tab-border);
+    font-size: 0.9rem;
+    color: #6c757d;
+}
 .docs-button {
     display: block;
     text-align: center;
     margin-top: 20px;
     padding: 12px 20px;
     background-color: var(--link-color);
-    color: #fff;
+    color: #fff; /* White text on colored background */
     text-decoration: none;
     font-weight: 500;
     border-radius: 8px;
@@ -72,7 +239,7 @@ pre code.hljs {
 }
 
 body.dark-mode .docs-button {
-    color: #121212;
+    color: #121212; /* Dark text for light button in dark mode */
 }
 
 body.dark-mode .docs-button:hover {
