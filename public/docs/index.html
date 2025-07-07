@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>API Documentation</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="../favicon.ico" />
+    </head>
+    <body>
+        <header>
+            <a href="/" class="back-link">← Back to All APIs</a>
+            <button id="theme-switcher" aria-label="Toggle theme">🌙</button>
+        </header>
+        <main class="content" id="readme-content">
+            <div class="loading">
+                <h2>Loading Documentation...</h2>
+            </div>
+        </main>
+        <!-- Using the 'marked' library to render Markdown as HTML -->
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

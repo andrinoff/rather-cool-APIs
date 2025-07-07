@@ -1,39 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Theme Switcher Logic ---
+  // --- Theme Switcher Logic (remains the same) ---
   const themeSwitcher = document.getElementById("theme-switcher");
   const body = document.body;
   const lightHljsTheme = document.getElementById("hljs-light-theme");
   const darkHljsTheme = document.getElementById("hljs-dark-theme");
 
-  // Function to apply the saved theme on load
   const applyTheme = (isDarkMode) => {
     body.classList.toggle("dark-mode", isDarkMode);
     themeSwitcher.textContent = isDarkMode ? "☀️" : "🌙";
-    // Toggle highlight.js theme stylesheets
     darkHljsTheme.disabled = !isDarkMode;
     lightHljsTheme.disabled = isDarkMode;
   };
 
-  // Load theme from localStorage
   const loadTheme = () => {
     const isDarkMode = localStorage.getItem("darkMode") === "true";
     applyTheme(isDarkMode);
   };
 
-  // Event listener for the theme switcher button
   themeSwitcher.addEventListener("click", () => {
     const isDarkMode = !body.classList.contains("dark-mode");
     localStorage.setItem("darkMode", isDarkMode);
     applyTheme(isDarkMode);
   });
 
-  // --- Original API Fetching Logic ---
-  /**
-   * Formats a folder name into a display-friendly API name.
-   * e.g., "dad-joke" -> "Dad Joke API"
-   * @param {string} folderName - The name of the folder.
-   * @returns {string} The formatted API name.
-   */
+  // --- Updated API Fetching Logic ---
   function formatApiName(folderName) {
     return (
       folderName
@@ -47,26 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  /**
-   * Fetches a live preview from the API endpoint.
-   * @param {string} url - The URL of the API endpoint.
-   * @returns {Promise<string>} The text content from the API response.
-   */
-  async function fetchApiPreview(url) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok)
-        return `Preview not available (Status: ${response.status}).`;
-      return await response.text();
-    } catch (error) {
-      console.error(`Error fetching preview for ${url}:`, error);
-      return "Could not fetch preview.";
-    }
-  }
-
-  /**
-   * Main function to fetch repository contents and build the API list.
-   */
   async function fetchAndDisplayApis() {
     const apiContainer = document.getElementById("api-container");
     const owner = "andrinoff";
@@ -78,9 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(githubApiUrl);
       if (!response.ok) {
-        throw new Error(
-          `GitHub API request failed: ${response.status}`,
-        );
+        throw new Error(`GitHub API request failed: ${response.status}`);
       }
       const contents = await response.json();
       const apiDirs = contents.filter(
@@ -99,8 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const folderName = dir.name;
         const apiName = formatApiName(folderName);
         const endpointURL = `${baseURL}${folderName}`;
-        const iconURL = `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/master/${path}/${folderName}/favicon.ico`;
+        const docsURL = `/docs/${folderName}`;
+        const iconURL = `https://raw.githubusercontent.com/${owner}/${repo}/master/${path}/${folderName}/favicon.ico`;
 
+        // Usage examples code
         const pythonCode = `import requests\n\nresponse = requests.get("${endpointURL}")\nprint(response.text)`;
         const javascriptCode = `fetch("${endpointURL}")\n  .then(response => response.text())\n  .then(data => console.log(data));`;
         const goCode = `package main\n\nimport (\n\t"fmt"\n\t"io/ioutil"\n\t"net/http"\n)\n\nfunc main() {\n\tresp, err := http.Get("${endpointURL}")\n\tif err != nil {\n\t\tfmt.Println("Error:", err)\n\t\treturn\n\t}\n\tdefer resp.Body.Close()\n\tbody, _ := ioutil.ReadAll(resp.Body)\n\tfmt.Println(string(body))\n}`;
@@ -108,28 +78,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const apiSection = document.createElement("div");
         apiSection.className = "api-section";
         apiSection.innerHTML = `
-                    <h2>
-                        <img src="${iconURL}" alt="API icon">
-                        ${apiName}
-                    </h2>
-                    <p><strong>Endpoint:</strong> <a href="${endpointURL}" target="_blank" rel="noopener noreferrer">${endpointURL}</a></p>
-                    <h3>Usage Examples</h3>
-                    <div class="tabs">
-                        <button class="tab-button active" data-tab="python-${index}">Python</button>
-                        <button class="tab-button" data-tab="js-${index}">JavaScript</button>
-                        <button class="tab-button" data-tab="go-${index}">Go</button>
-                    </div>
-                    <div id="python-${index}" class="tab-content active"><pre><code class="language-python">${pythonCode}</code></pre></div>
-                    <div id="js-${index}" class="tab-content"><pre><code class="language-javascript">${javascriptCode}</code></pre></div>
-                    <div id="go-${index}" class="tab-content"><pre><code class="language-go">${goCode}</code></pre></div>
-                    <h3>Live Output Preview</h3>
-                    <div class="output-preview" id="preview-${index}">Fetching preview...</div>
-                `;
-        apiContainer.appendChild(apiSection);
+            <h2>
+                <img src="${iconURL}" alt="API icon" onerror="this.style.display='none'">
+                ${apiName}
+            </h2>
+            <p><strong>Endpoint:</strong> <a href="${endpointURL}" target="_blank" rel="noopener noreferrer">${endpointURL}</a></p>
 
-        // Fetch and display the live preview
-        const previewText = await fetchApiPreview(endpointURL);
-        document.getElementById(`preview-${index}`).textContent = previewText;
+            <h3>Usage Examples</h3>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="python-${index}">Python</button>
+                <button class="tab-button" data-tab="js-${index}">JavaScript</button>
+                <button class="tab-button" data-tab="go-${index}">Go</button>
+            </div>
+            <div id="python-${index}" class="tab-content active"><pre><code class="language-python">${pythonCode}</code></pre></div>
+            <div id="js-${index}" class="tab-content"><pre><code class="language-javascript">${javascriptCode}</code></pre></div>
+            <div id="go-${index}" class="tab-content"><pre><code class="language-go">${goCode}</code></pre></div>
+
+            <a href="${docsURL}" class="docs-button">View Full Docs</a>
+        `;
+        apiContainer.appendChild(apiSection);
       }
 
       // Apply syntax highlighting to all code blocks
@@ -141,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // New, more robust tab switching using event delegation
+  // Event delegation for tab switching
   document
     .getElementById("api-container")
     .addEventListener("click", (event) => {
