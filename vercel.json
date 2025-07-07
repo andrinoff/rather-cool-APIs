@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/docs/:api*",
+      "destination": "/docs/index.html"
+    }
+  ]
+}
