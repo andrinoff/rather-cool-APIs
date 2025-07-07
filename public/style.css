@@ -10,7 +10,7 @@
     --link-color: #007bff;
     --card-bg: #ffffff;
     --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    --code-bg: #e9ecef;
+    /* --code-bg has been removed as highlight.js handles it */
     --preview-bg: #f1f3f5;
     --tab-border: #dee2e6;
     --tab-active-bg: #ffffff;
@@ -26,7 +26,7 @@ body.dark-mode {
     --link-color: #58a6ff;
     --card-bg: #1e1e1e;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --code-bg: #2d2d2d;
+    /* --code-bg has been removed as highlight.js handles it */
     --preview-bg: #252525;
     --tab-border: #444;
     --tab-active-bg: #1e1e1e;
@@ -161,26 +161,33 @@ h2 img {
     display: block;
 }
 
-/* Code and Preview blocks */
-.code-block,
+/* --- New Styles for Syntax Highlighting --- */
+/* The <pre> tag acts as a container for the code block */
+pre {
+    margin: 10px 0 0 0; /* Adjusted margin */
+    border-radius: 8px; /* Rounded corners for the container */
+    overflow: hidden; /* Ensures the inner <code> respects the container's border-radius */
+}
+
+/* The <code> tag is styled by the highlight.js theme for colors. We only add padding and font styles. */
+pre code.hljs {
+    padding: 20px;
+    display: block; /* Ensures padding is applied correctly */
+    font-family: "Courier New", Courier, monospace;
+    white-space: pre-wrap; /* Wrap long lines */
+    word-break: break-all;
+}
+
+/* Preview block styling */
 .output-preview {
+    background-color: var(--preview-bg);
     padding: 20px;
     border-radius: 8px;
     margin-top: 10px;
     font-family: "Courier New", Courier, monospace;
-    transition: background-color 0.3s ease;
-}
-
-.code-block {
-    background-color: var(--code-bg);
-    white-space: pre-wrap;
-    word-break: break-all;
-}
-
-.output-preview {
-    background-color: var(--preview-bg);
     font-style: italic;
     white-space: pre-wrap;
+    transition: background-color 0.3s ease;
 }
 
 /* Links and utility classes */
