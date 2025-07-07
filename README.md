@@ -1,7 +1,11 @@
 # Rather Cool APIs
 
+    
+<img src ="public/favicon.ico" height="200px">
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/andrinoff/rather-cool-APIs)
 ![GitHub last commit](https://img.shields.io/github/last-commit/andrinoff/rather-cool-APIs)
+
 [![Vercel](https://img.shields.io/badge/Vercel-▲-black?logo=vercel)](https://api.andrinoff.com)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
