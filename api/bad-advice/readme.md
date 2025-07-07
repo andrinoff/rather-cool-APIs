@@ -19,7 +19,7 @@ To get your random piece of bad advice, simply send a `GET` request to the API e
 You can use `curl` or any HTTP client to make a request.
 
 ```bash
-curl [https://your-deployment-url.vercel.app/api/handler](https://your-deployment-url.vercel.app/api/handler)
+curl https://api.andrinoff.com/api/bad-advice
 ```
 
 ### Example Response
