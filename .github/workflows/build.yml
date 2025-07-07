@@ -1,48 +1,54 @@
-# .github/workflows/verify-build.yml
+# .github/workflows/build.yml
+# This GitHub Actions workflow verifies that the project can be successfully built by Vercel.
+# It runs on every pull request that targets the 'master' branch to catch build errors early.
 
-name: Verify Vercel Build
+name: "Verify Vercel Build"
 
-# This workflow runs on every pull request that targets the 'main' branch.
 on:
   pull_request:
     branches:
       - master
+  # Optional: also run on pushes to master to ensure the main branch is always healthy
+  push:
+    branches:
+      - master
 
 jobs:
-  # The 'build' job's purpose is to run the Vercel build command to check for errors.
-  build:
-    # Use the latest version of Ubuntu as the runner.
+  verify-build:
+    name: "Verify Build with Vercel CLI"
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the repository code from the pull request.
-      - name: Checkout Repository
+      - name: "Checkout Repository"
         uses: actions/checkout@v4
 
-      # Step 2: Set up the Node.js environment. Vercel CLI requires Node.js.
-      # We specify a version of Node.js that is compatible with Vercel.
-      - name: Setup Node.js
+      - name: "Set up Node.js environment"
         uses: actions/setup-node@v4
         with:
-          node-version: "22" # Using Node.js version 20
+          node-version: "22" # Use a specific Node.js version compatible with Vercel
 
-      # Step 3: Install the Vercel CLI.
-      # The '-g' flag installs it globally so it can be used in subsequent steps.
-      - name: Install Vercel CLI
-        run: npm install -g vercel
+      - name: "Cache npm packages"
+        uses: actions/cache@v4 # Use caching to speed up Vercel CLI installation
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      # Step 4: Create dummy Vercel project configuration.
-      # The 'vercel build' command requires a project configuration to exist.
-      # This step creates a dummy .vercel/project.json file with placeholder IDs
-      # to satisfy the CLI without needing to be linked to a real Vercel project.
-      - name: Create Dummy Vercel Project Config
+      - name: "Install Vercel CLI"
+        run: npm install --global vercel
+
+      - name: "Create dummy Vercel project configuration"
+        # The 'vercel build' command requires a .vercel/project.json file to exist.
+        # This step creates a dummy file to satisfy the CLI without needing to be
+        # linked to a real Vercel project, which is ideal for pull request checks.
         run: |
           mkdir -p .vercel
           echo '{"projectId": "prj_placeholder", "orgId": "team_placeholder"}' > .vercel/project.json
 
-      # Step 5: Run the Vercel build command.
-      # This command simulates a production build and will fail if there are any errors
-      # in the code that would prevent Vercel from deploying it successfully.
-      # No VERCEL_TOKEN is needed for the build command.
-      - name: Run Vercel Build
+      - name: "Run Vercel Build Command"
+        # This command simulates a production build. It will install dependencies
+        # for all serverless functions (Go, Python, etc.) and attempt to build them.
+        # The job will fail if there are any build errors.
+        # No VERCEL_TOKEN is needed for this step.
         run: vercel build
