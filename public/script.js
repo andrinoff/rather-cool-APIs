@@ -2,20 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Theme Switcher Logic ---
   const themeSwitcher = document.getElementById("theme-switcher");
   const body = document.body;
+  const lightHljsTheme = document.getElementById("hljs-light-theme");
+  const darkHljsTheme = document.getElementById("hljs-dark-theme");
 
   // Function to apply the saved theme on load
-  const loadTheme = () => {
-    const isDarkMode =
-      localStorage.getItem("darkMode") === "true";
+  const applyTheme = (isDarkMode) => {
     body.classList.toggle("dark-mode", isDarkMode);
     themeSwitcher.textContent = isDarkMode ? "☀️" : "🌙";
+    // Toggle highlight.js theme stylesheets
+    darkHljsTheme.disabled = !isDarkMode;
+    lightHljsTheme.disabled = isDarkMode;
+  };
+
+  // Load theme from localStorage
+  const loadTheme = () => {
+    const isDarkMode = localStorage.getItem("darkMode") === "true";
+    applyTheme(isDarkMode);
   };
 
   // Event listener for the theme switcher button
   themeSwitcher.addEventListener("click", () => {
-    const isDarkMode = body.classList.toggle("dark-mode");
+    const isDarkMode = !body.classList.contains("dark-mode");
     localStorage.setItem("darkMode", isDarkMode);
-    themeSwitcher.textContent = isDarkMode ? "☀️" : "🌙";
+    applyTheme(isDarkMode);
   });
 
   // --- Original API Fetching Logic ---
@@ -50,10 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return `Preview not available (Status: ${response.status}).`;
       return await response.text();
     } catch (error) {
-      console.error(
-        `Error fetching preview for ${url}:`,
-        error,
-      );
+      console.error(`Error fetching preview for ${url}:`, error);
       return "Could not fetch preview.";
     }
   }
@@ -62,8 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * Main function to fetch repository contents and build the API list.
    */
   async function fetchAndDisplayApis() {
-    const apiContainer =
-      document.getElementById("api-container");
+    const apiContainer = document.getElementById("api-container");
     const owner = "andrinoff";
     const repo = "rather-cool-apis";
     const path = "api";
@@ -103,32 +108,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const apiSection = document.createElement("div");
         apiSection.className = "api-section";
         apiSection.innerHTML = `
-                <h2>
-                    <img src="${iconURL}" alt="API icon">
-                    ${apiName}
-                </h2>
-                <p><strong>Endpoint:</strong> <a href="${endpointURL}" target="_blank" rel="noopener noreferrer">${endpointURL}</a></p>
-                <h3>Usage Examples</h3>
-                <div class="tabs">
-                    <button class="tab-button active" data-tab="python-${index}">Python</button>
-                    <button class="tab-button" data-tab="js-${index}">JavaScript</button>
-                    <button class="tab-button" data-tab="go-${index}">Go</button>
-                </div>
-                <div id="python-${index}" class="tab-content active"><div class="code-block">${pythonCode}</div></div>
-                <div id="js-${index}" class="tab-content"><div class="code-block">${javascriptCode}</div></div>
-                <div id="go-${index}" class="tab-content"><div class="code-block">${goCode}</div></div>
-                <h3>Live Output Preview</h3>
-                <div class="output-preview" id="preview-${index}">Fetching preview...</div>
-            `;
+                    <h2>
+                        <img src="${iconURL}" alt="API icon">
+                        ${apiName}
+                    </h2>
+                    <p><strong>Endpoint:</strong> <a href="${endpointURL}" target="_blank" rel="noopener noreferrer">${endpointURL}</a></p>
+                    <h3>Usage Examples</h3>
+                    <div class="tabs">
+                        <button class="tab-button active" data-tab="python-${index}">Python</button>
+                        <button class="tab-button" data-tab="js-${index}">JavaScript</button>
+                        <button class="tab-button" data-tab="go-${index}">Go</button>
+                    </div>
+                    <div id="python-${index}" class="tab-content active"><pre><code class="language-python">${pythonCode}</code></pre></div>
+                    <div id="js-${index}" class="tab-content"><pre><code class="language-javascript">${javascriptCode}</code></pre></div>
+                    <div id="go-${index}" class="tab-content"><pre><code class="language-go">${goCode}</code></pre></div>
+                    <h3>Live Output Preview</h3>
+                    <div class="output-preview" id="preview-${index}">Fetching preview...</div>
+                `;
         apiContainer.appendChild(apiSection);
 
         // Fetch and display the live preview
-        const previewText =
-          await fetchApiPreview(endpointURL);
-        document.getElementById(
-          `preview-${index}`,
-        ).textContent = previewText;
+        const previewText = await fetchApiPreview(endpointURL);
+        document.getElementById(`preview-${index}`).textContent = previewText;
       }
+
+      // Apply syntax highlighting to all code blocks
+      hljs.highlightAll();
+
     } catch (error) {
       console.error("Error initializing page:", error);
       apiContainer.innerHTML = `<div class="error">⚠️ Could not load APIs from GitHub. Check the console for details.</div>`;
