@@ -93,7 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <div id="python-${index}" class="tab-content active"><pre><code class="language-python">${pythonCode}</code></pre></div>
             <div id="js-${index}" class="tab-content"><pre><code class="language-javascript">${javascriptCode}</code></pre></div>
             <div id="go-${index}" class="tab-content"><pre><code class="language-go">${goCode}</code></pre></div>
-
+            <h1>Live preview:</h1>
+            <iframe src="${endpointURL}" class="api-preview" title="${apiName} Preview"></iframe>
             <a href="${docsURL}" class="docs-button">View Full Docs</a>
         `;
         apiContainer.appendChild(apiSection);
