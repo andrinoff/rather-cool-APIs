@@ -38,17 +38,15 @@ jobs:
       - name: "Install Vercel CLI"
         run: npm install --global vercel
 
-      - name: "Create dummy Vercel project configuration"
-        # The 'vercel build' command requires a .vercel/project.json file to exist.
-        # This step creates a dummy file to satisfy the CLI without needing to be
-        # linked to a real Vercel project, which is ideal for pull request checks.
-        run: |
-          mkdir -p .vercel
-          echo '{"projectId": "prj_placeholder", "orgId": "team_placeholder"}' > .vercel/project.json
+      - name: "Pull Vercel Project Settings"
+        # This step uses `vercel pull` to generate the required .vercel/project.json file.
+        # We provide a dummy token because the command requires authentication, but for a simple
+        # build verification, we don't need access to a real Vercel project.
+        # This is more reliable than creating the file manually.
+        run: vercel pull --yes --environment=preview --token=${{ secrets.DUMMY_TOKEN || 'dummy-token' }}
 
       - name: "Run Vercel Build Command"
         # This command simulates a production build. It will install dependencies
         # for all serverless functions (Go, Python, etc.) and attempt to build them.
         # The job will fail if there are any build errors.
-        # No VERCEL_TOKEN is needed for this step.
         run: vercel build
