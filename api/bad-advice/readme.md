@@ -12,7 +12,7 @@ This is a lightweight, serverless API built with **Go** and designed for deploym
 
 To get your random piece of bad advice, simply send a `GET` request to the API endpoint.
 
-**Endpoint:** `/api/handler`
+**Endpoint:** `/api/bad-advice`
 
 ### Example Request
 
@@ -69,7 +69,7 @@ You may skip the last 2 steps by running `make setup`
     vercel dev
     ```
 
-The local server will start, and you can access the API at an address like `http://localhost:3000/api/handler`.
+The local server will start, and you can access the API at an address like `http://localhost:3000/api/bad-advice`.
 
 ## 📜 License
 
